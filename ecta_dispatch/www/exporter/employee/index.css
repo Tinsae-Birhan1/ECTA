@@ -1,0 +1,23 @@
+th, td{
+    font-size: 13px !important;
+}
+
+.add-new-button{
+    display: flex !important;
+    justify-content: end;
+}
+
+.btn-primary{
+    background-color: #f67931 !important;
+}
+
+.table-sm td{
+    padding: 0.3rem;
+}
+
+
+@media(max-width: 600px){
+    .add-new-button{
+        justify-content:flex-start !important;
+    }
+}

@@ -1,0 +1,43 @@
+{
+ "cards": [
+  {
+   "card": "Volume in Ton"
+  },
+  {
+   "card": "Number of Centers"
+  },
+  {
+   "card": "Number of Warehouses"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Total Volume In ton",
+   "width": "Full"
+  },
+  {
+   "chart": "Dispatch Statuses",
+   "width": "Half"
+  },
+  {
+   "chart": "Center - Volume in ton",
+   "width": "Half"
+  },
+  {
+   "chart": "Delivered Vs Undelivered",
+   "width": "Half"
+  }
+ ],
+ "creation": "2022-04-19 00:17:18.327811",
+ "dashboard_name": "Dispatcher dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2022-06-06 17:17:03.024145",
+ "modified_by": "Administrator",
+ "module": "Ecta Dispatch",
+ "name": "Dispatcher dashboard",
+ "owner": "Administrator"
+}

@@ -1,0 +1,266 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:warehouse_name",
+ "creation": "2022-04-18 12:29:29.098704",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "warehouse_detail_section",
+  "warehouse_name",
+  "column_break_50",
+  "warehouse_amharic_name",
+  "column_break_5",
+  "warehouse_type",
+  "column_break_7",
+  "company_type",
+  "contact_detail_section",
+  "owner_name",
+  "column_break_11",
+  "file_number",
+  "contact_section",
+  "warehouse_owner",
+  "column_break_12",
+  "warehouse_operator",
+  "address_section",
+  "website",
+  "column_break_19",
+  "city",
+  "column_break_25",
+  "subcity",
+  "column_break_27",
+  "woreda",
+  "section_break_29",
+  "primay_user",
+  "second_user"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse Detail"
+  },
+  {
+   "fieldname": "warehouse_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Warehouse Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_50",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse_amharic_name",
+   "fieldtype": "Data",
+   "label": "Warehouse Amharic Name"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse_type",
+   "fieldtype": "Select",
+   "label": "Warehouse Type",
+   "options": "Private Warehouse\nECX Warehouse\nECTA Warehouse"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_type",
+   "fieldtype": "Data",
+   "label": "Company Type"
+  },
+  {
+   "fieldname": "contact_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Detail"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "file_number",
+   "fieldtype": "Data",
+   "label": "File Number"
+  },
+  {
+   "fieldname": "contact_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "column_break_25",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subcity",
+   "fieldtype": "Data",
+   "label": "Subcity"
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "woreda",
+   "fieldtype": "Data",
+   "label": "Woreda"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "primay_user",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "User 1",
+   "options": "User"
+  },
+  {
+   "fieldname": "second_user",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "User 2",
+   "options": "User"
+  },
+  {
+   "fieldname": "warehouse_owner",
+   "fieldtype": "Link",
+   "label": "Warehouse Owner",
+   "options": "User"
+  },
+  {
+   "fieldname": "warehouse_operator",
+   "fieldtype": "Link",
+   "label": "Warehouse Operator",
+   "options": "User"
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "label": "Owner Name"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-06-06 11:39:47.138683",
+ "modified_by": "Administrator",
+ "module": "Ecta Dispatch",
+ "name": "ECTA Approved Warehouses",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse Owner",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse Operator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Director General",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Deputy Director General",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Market Inspection and Control Supervisor",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Market Inspection and Control Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

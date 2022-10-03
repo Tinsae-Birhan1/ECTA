@@ -1,0 +1,109 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Requests") }}{% endblock %}
+{% block style%}
+
+<link rel="shortcut icon"
+href="/files/Logo [No Background] for White Background (Original Colors) - Copy.png" type="image/x-icon">
+
+<!-- <link type="text/css" rel="stylesheet" href="/assets/frappe/dist/css/desk.bundle.QPTK7X56.css"> -->
+<!-- <link href="https://cdn.datatables.net/1.11.5/css/j/query.dataTables.min.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<!-- <link type="text/css" rel="stylesheet" href="/assets/erpnext/dist/css/erpnext.bundle.F7TDSCPA.css"> -->
+<link rel="stylesheet" type="text/css" href="/assets/ecta_dispatch/datatable/datatables.min.css"/>
+
+
+        <style>
+            body{
+                margin: 0;
+                font-family: var(--font-stack);
+                font-size: .9rem !important;
+                font-weight: 400;
+                line-height: 1.5;
+                color: var(--text-light);
+                text-align: left;
+            }
+
+            @media (min-width: 1200px){
+                main.container {
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                }
+            }
+        </style>
+{% endblock%}
+{# {% block header %}<h1>{{ _("My Account") }}</h1>{% endblock %} #}
+
+{% block page_content %}
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <span>Dispatches</span>
+                </div>
+                <!-- <div class="col-sm-6 col-xs-12 add-new-button">
+                    <a href="/ecta-file-importer?new=1" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></a>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body  table-responsive">
+         <table class="table table-sm" width="100%">
+                <thead>
+                    <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <!-- <th scope="col">Exporter Name</th> -->
+                    <th scope="col">Coffee Type</th>
+                    <th scope="col">Driver Name </th>
+                    <th scope="col">Driver Phone </th>
+                    <th scope="col">Center</th>
+                    <th scope="col">Sent warehouse</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col">Proof Of delivery</th>
+                    <th scope="col">Dispatch Date</th>
+                    <th scope="col">Last Modified</th>
+                    <th scope="col">Seen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in dispatches %}
+                        <tr>
+                            <!-- <th scope="row">{{loop.index}}</th> -->
+                            <!-- <td>{{request.exporter_name}}</td> -->
+                            <td>{{request.coffee_type}}</td>
+                            <td>{{request.drivers_name}}</td>
+                            <td>{{request.drivers_phone}}</td>
+                            <td>{{request.center}}</td>
+                            <td>{{request.sent_warehouse}}</td>
+                            <td>{{request.serial_number}}</td>
+                            <td>
+                                {% if request.proof_of_delivery %}
+                                <a href="{{request.proof_of_delivery}}" target="_blank">Proof of delivery</a>
+                                {% else %}
+                                    <span style="color:red">NA</span>
+                                {% endif %}
+                                </td>                            
+                            <td>{{frappe.format(request.creation, {'fieldtype': 'Date'})}}</td>
+                            <td>{{frappe.format(request.modified, {'fieldtype': 'Date'})}}</td>
+
+                                {% if request.status == "Delivered" or request.status == "Seen" %}
+                                    <td><i class="fa fa-lg fa-check"></i></td>
+                                {% else %}
+                                    <td><i class="fa fa-spinner" aria-hidden="true"></i></td>
+                                {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %} 
+
+{% block script %}
+<script type="text/javascript" src="/assets/shipping/datatable/datatables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('.table').DataTable();
+        } );
+    </script>
+
+{% endblock %}

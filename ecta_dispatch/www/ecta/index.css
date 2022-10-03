@@ -1,0 +1,22 @@
+th, td{
+    font-size: 11px !important;
+}
+
+.add-new-button{
+    display: flex !important;
+    justify-content: end;
+}
+
+.btn-primary{
+    background-color: #f67931 !important;
+}
+
+.btn .btn-primary{
+    color: #f67931 ;
+}
+
+@media(max-width: 600px){
+    .add-new-button{
+        justify-content:flex-start !important;
+    }
+}

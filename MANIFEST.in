@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include ecta_dispatch *.css
+recursive-include ecta_dispatch *.csv
+recursive-include ecta_dispatch *.html
+recursive-include ecta_dispatch *.ico
+recursive-include ecta_dispatch *.js
+recursive-include ecta_dispatch *.json
+recursive-include ecta_dispatch *.md
+recursive-include ecta_dispatch *.png
+recursive-include ecta_dispatch *.py
+recursive-include ecta_dispatch *.svg
+recursive-include ecta_dispatch *.txt
+recursive-exclude ecta_dispatch *.pyc

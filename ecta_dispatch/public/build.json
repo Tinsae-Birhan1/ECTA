@@ -1,0 +1,5 @@
+{
+    "js/ecta_dispatch.js": ["public/js/ecta_dispatch.js"],
+    "css/ecta_dispatch.css": ["public/css/font-awesome.min.css"]
+  }
+  

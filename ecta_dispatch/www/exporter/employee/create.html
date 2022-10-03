@@ -1,0 +1,149 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Requests") }}{% endblock %}
+{% block style%}
+        <style>
+            label{
+                font-size: .85rem;
+            }
+        </style>
+{% endblock%}
+{# {% block header %}<h1>{{ _("My Account") }}</h1>{% endblock %} #}
+
+{% block page_content %}
+    <div class="card" style="width: 100%">
+        <div class="card-header">
+            <h6>Employee Registration Form</h6>
+        </div>
+        <div class="card-body  table-responsive" style="padding: 4% 5%">
+            <form autocomplete="off">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="first_name" class="text-color-dark text-3">First Name</label>
+                            <span class="text-color-danger">*</span>
+                            <input class="form-control" required="" name="firstname" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="last_name" class="text-color-dark text-3">Last Name</label>
+                            <span class="text-color-danger">*</span>
+                            <input class="form-control" required="" name="lastname" type="text" value="">
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sex" class="text-color-dark text-3">Sex</label>
+                            <span class="text-color-danger">*</span>
+                            <select class="form-control" id="sex" name="sex"><option value="Male">Male</option><option value="Female">Female</option></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone" class="text-color-dark text-3">Phone</label>
+                            <span class="text-color-danger">*</span>
+                            <input class="form-control" required="required" name="phone" type="text" value="" id="phone">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email" class="text-color-dark text-3">Email</label>
+                            <span class="text-color-danger">*</span>
+                            <input class="form-control" name="email" type="email" value="">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email" class="text-color-dark text-3">Job Type/Role</label>
+                            <span class="text-color-danger">*</span>
+                            <select class="form-control" name="job_type">
+                                {% for option in options %}
+                                    <option value="{{option}}">{{option}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="password" class="text-color-dark text-3">password</label>
+                            <span class="text-color-danger">*</span>
+                            <input class="form-control" required="required" name="password" type="password" value="" id="password">
+                        </div>
+                    </div> -->
+                    
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="form-group col-md-6">
+                        <button type="submit" class="btn btn-primary text-3 font-weight-bold px-5 submit_btn" style="min-width: 100px">Save</button>
+                        <br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-sm" style="padding: 40px" id="messageModal" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content py-5">
+                <center><strong id="bold"></strong><span id="message"></span></center>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
+
+{% block script %}
+  <script>
+    $("form").on("submit", function(e){
+        e.preventDefault();
+
+        var object = {};
+        formData = new FormData(e.target);
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+
+        $(".submit_btn").attr("disabled", "disabled");
+
+        $.ajax({
+            url: '/api/method/ecta_dispatch.api.user_api.create_user',
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Frappe-CSRF-Token': "{{ csrf_token }}"
+            },
+            data: JSON.stringify(object),
+            success: function(data)
+            {
+                location.href = "/exporter/employee"
+                // $("#message").html(messages.message);
+                //     setTimeout(function () {
+                //         $('#messageModal').modal();
+                //     }, 2000);
+                
+            },
+            error: function (data) {
+                var json = JSON.parse(data.responseJSON._server_messages);
+                var error_messages = "";
+                var messages = JSON.parse(json);
+                $("#message").html(messages.message);
+                setTimeout(function () {
+                    $('#messageModal').modal();
+                }, 2000);
+                $(".submit_btn").removeAttr("disabled")
+            }
+		});
+    });
+  </script>
+{% endblock %}

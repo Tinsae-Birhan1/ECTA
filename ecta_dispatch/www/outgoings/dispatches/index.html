@@ -1,0 +1,114 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Requests") }}{% endblock %}
+{# {% block header %}<h1>{{ _("My Account") }}</h1>{% endblock %} #}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/assets/ecta_dispatch/datatable/datatables.min.css"/>
+    
+    <style>
+        body{
+            margin: 0;
+            font-family: var(--font-stack);
+            font-size: .875rem !important;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-light);
+            text-align: left;
+        }
+
+        .container{
+            padding: 10px;
+        }
+
+        .add-new-button{
+            display: flex;
+            justify-content: end;
+        }
+
+        th, td{
+            font-size: 14px !important;
+        }
+
+        .add-new-button{
+            display: flex !important;
+            justify-content: end;
+        }
+
+        .btn-primary{
+            background-color: #f67931 !important;
+        }
+
+        .btn .btn-primary{
+            color: #f67931 ;
+        }
+
+        @media(max-width: 600px){
+            .add-new-button{
+                justify-content:flex-start !important;
+            } 
+        }
+    </style>
+{% endblock %}
+{% block page_content %}
+    <div class="card" style="width: 100%;">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <span>Dispatches</span>
+                </div>
+                <!-- <div class="col-sm-6 col-xs-12 add-new-button">
+                        <a href="/outgoing-dispatch?new=1" class="btn btn-sm btn-primary float-right"><i class="fa fa-plus"></i> Add New Outgoing Dispatches</a>
+                </div> -->
+            </div>
+        </div>
+        <div class="card-body  table-responsive">
+         <table class="table table-striped" width="100%" id="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <!-- <th scope="col">Exporter Name</th> -->
+                    <th scope="col">Commodity Type</th>
+                    <th scope="col">Processing Type </th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Package Type</th>
+                    <th scope="col">Quantity of package</th>
+                    <th scope="col">Net Weight</th>
+                    <th scope="col">Total Weight</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Outgoing Voucher</th>
+                    <th scope="col">Last Modified</th>
+                    <!-- <th scope="col">Action</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dispatch in outgoing_dispatches %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <!-- <td>{{dispatch.exporter}}</td> -->
+                            <td>{{dispatch.commodity_type}}</td>
+                            <td>{{dispatch.processing_type}}</td>
+                            <td>{{dispatch.coffee_grade}}</td>
+                            <td>{{dispatch.package_type}}</td>
+                            <td>{{dispatch.quantity_of_package}}</td>
+                            <td>{{dispatch.net_weight}}</td>
+                            <td>{{dispatch.total_weight}}</td>
+                            <td>{{dispatch.destination}}</td>
+                            <td><a href="{{dispatch.warehouse_outgoing_voucher}}" target="_blank">Outgoing Vouchers</a></td>
+                            <!-- <td><a href="/outgoing-dispatch?name={{dispatch.name}}">Edit</a></td> -->
+                            <td>{{frappe.format(request.modified, {'fieldtype': 'Date'})}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %} 
+{% block script %}
+    <script type="text/javascript" src="/assets/shipping/datatable/datatables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable();
+        });
+    </script>
+{% endblock %}

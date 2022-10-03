@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2022-05-30 09:56:13.605724",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2022-05-30 09:56:58.796207",
+ "modified_by": "Administrator",
+ "module": "Ecta Dispatch",
+ "name": "data-import-tool",
+ "owner": "Administrator",
+ "page_name": "data-import-tool",
+ "roles": [
+  {
+   "role": "Market Inspection and Control Supervisor"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "data-import-tool"
+}

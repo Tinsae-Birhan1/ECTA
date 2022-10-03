@@ -1,0 +1,404 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "creation": "2022-04-18 12:23:56.070862",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "serial_number",
+  "center",
+  "zone",
+  "woreda",
+  "supplier_name",
+  "exporter_id",
+  "exporter_name",
+  "exporter_type",
+  "column_break_8",
+  "eta",
+  "sent_warehouse",
+  "user",
+  "region",
+  "coffee_type",
+  "processing_type",
+  "coffee_grade",
+  "volume_in_bag",
+  "volume_in_ton",
+  "section_break_17",
+  "car_plate_no",
+  "column_break_19",
+  "drivers_name",
+  "column_break_21",
+  "drivers_phone",
+  "column_break_23",
+  "license_number",
+  "section_break_25",
+  "edited",
+  "column_break_28",
+  "verify1",
+  "column_break_31",
+  "excel_import",
+  "column_break_33",
+  "file_attached_by",
+  "status",
+  "data_36",
+  "received_volume_in_bag",
+  "column_break_38",
+  "received_volume_in_ton",
+  "column_break_40",
+  "proof_of_delivery",
+  "column_break_42",
+  "date_of_received",
+  "column_break_44",
+  "approved",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Dispatch Date"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Int",
+   "label": "Serial Number"
+  },
+  {
+   "fieldname": "center",
+   "fieldtype": "Link",
+   "label": "Center",
+   "options": "Center"
+  },
+  {
+   "fieldname": "zone",
+   "fieldtype": "Data",
+   "label": "Zone"
+  },
+  {
+   "fieldname": "woreda",
+   "fieldtype": "Data",
+   "label": "Woreda"
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name"
+  },
+  {
+   "fieldname": "exporter_id",
+   "fieldtype": "Data",
+   "label": "Exporter ID"
+  },
+  {
+   "fieldname": "exporter_name",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Exporter Name"
+  },
+  {
+   "fieldname": "exporter_type",
+   "fieldtype": "Data",
+   "label": "Exporter Type"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sent_warehouse",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Sent warehouse",
+   "options": "ECTA Approved Warehouses"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Data",
+   "label": "Region"
+  },
+  {
+   "fieldname": "coffee_type",
+   "fieldtype": "Data",
+   "label": "Coffee Type"
+  },
+  {
+   "fieldname": "processing_type",
+   "fieldtype": "Select",
+   "label": "Processing Type",
+   "options": "Washed\nUnWashed"
+  },
+  {
+   "fieldname": "coffee_grade",
+   "fieldtype": "Select",
+   "label": "Coffee Grade",
+   "options": "Grade 1\nGrade 2\nGrade 3\nGrade 4\nGrade 5\nGrade 6\nGrade 7\nGrade 8\nGrade 9\nUNDER GRADE"
+  },
+  {
+   "fieldname": "volume_in_bag",
+   "fieldtype": "Int",
+   "label": "Volume in Bag"
+  },
+  {
+   "fieldname": "volume_in_ton",
+   "fieldtype": "Float",
+   "label": "Volume in Ton"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "car_plate_no",
+   "fieldtype": "Data",
+   "label": "Car Plate No"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "drivers_name",
+   "fieldtype": "Data",
+   "label": "Drivers Name"
+  },
+  {
+   "fieldname": "column_break_21",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "drivers_phone",
+   "fieldtype": "Data",
+   "label": "Drivers Phone"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "license_number",
+   "fieldtype": "Data",
+   "label": "License Number"
+  },
+  {
+   "fieldname": "section_break_25",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "edited",
+   "fieldtype": "Data",
+   "label": "Edited"
+  },
+  {
+   "fieldname": "column_break_28",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "verify1",
+   "fieldtype": "Check",
+   "label": "Verify"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "excel_import",
+   "fieldtype": "Attach",
+   "label": "File Import",
+   "permlevel": 2
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "file_attached_by",
+   "fieldtype": "Link",
+   "label": "File Attached By",
+   "options": "User",
+   "permlevel": 3
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Undelivered\nDelivered\nSeen"
+  },
+  {
+   "fieldname": "data_36",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "received_volume_in_bag",
+   "fieldtype": "Int",
+   "label": "Received Volume in Bag"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "received_volume_in_ton",
+   "fieldtype": "Float",
+   "label": "Received Volume in Ton"
+  },
+  {
+   "fieldname": "column_break_40",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "proof_of_delivery",
+   "fieldtype": "Attach",
+   "label": "Proof of Delivery"
+  },
+  {
+   "fieldname": "column_break_42",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_received",
+   "fieldtype": "Datetime",
+   "label": "Received Date"
+  },
+  {
+   "fieldname": "column_break_44",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "approved",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Seen"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "ECTA Dispatches",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "eta",
+   "fieldtype": "Date",
+   "label": "Estimated Time of Arrival"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-07-21 10:21:23.502225",
+ "modified_by": "Administrator",
+ "module": "Ecta Dispatch",
+ "name": "ECTA Dispatches",
+ "name_case": "Title Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "ECTA user",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse Owner",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse Operator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Director General",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Deputy Director General",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Market Inspection and Control Supervisor",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Market Inspection and Control Team",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
