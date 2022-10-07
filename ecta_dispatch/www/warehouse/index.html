@@ -335,7 +335,7 @@
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                        <li><a href="/?cmd=web_logout"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -412,7 +412,7 @@
                                                                         {% if request.approved %}
                                                            
                                                                             <i class="fa fa-lg fa-check"></i>
-                                                                        {% else %}
+                                                                        {% else %}<span style="color:red">NA</span>
                                                                         <i class="fa fa-car fa-lg"></i>
                                                                         {% endif %}        
                                                                     </td> 
@@ -435,7 +435,7 @@
 
                  <!-- Recieve proof modal @s-->
 
-                 < <div id="Receive" class="modal custom-modal fade" role="dialog">
+                  <div id="Receive" class="modal custom-modal fade" role="dialog">
                     <div
                     class="modal-dialog modal-dialog-centered modal-lg"
                     role="document"

@@ -12,7 +12,7 @@
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="/assets/ecta_dispatch/assets/images/favicon.png" />
     <!-- Page Title  -->
-    <title>Outgoings</title>
+    <title>Detail-Outgoings</title>
     <!-- StyleSheets  -->
     <link
       rel="stylesheet"
@@ -71,9 +71,9 @@
                   </li>
                   <!-- .nk-menu-item -->
                   <li class="nk-menu-item">
-                    <a href="/outgoings" class="nk-menu-link">
+                    <a href="/ectaoutgoing" class="nk-menu-link">
                       <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
-                      <span class="nk-menu-text">Outgoings</span>
+                      <span class="nk-menu-text">ECTA-outgoing</span>
                     </a>
                   </li>
                   <!-- .nk-menu-item -->
@@ -287,7 +287,7 @@
                                 <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                               </div>
                               <div class="nk-notification-content">
-                                <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
+                                <div class="nk-notification-text">You have dispatched to <span>Widthdrawl</span></div>
                                 <div class="nk-notification-time">2 hrs ago</div>
                               </div>
                             </div>
@@ -305,7 +305,7 @@
                                 <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                               </div>
                               <div class="nk-notification-content">
-                                <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
+                                <div class="nk-notification-text">You have dispatched to <span>Widthdrawl</span></div>
                                 <div class="nk-notification-time">2 hrs ago</div>
                               </div>
                             </div>
@@ -323,7 +323,7 @@
                                 <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                               </div>
                               <div class="nk-notification-content">
-                                <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
+                                <div class="nk-notification-text">You have dispatched to <span>Widthdrawl</span></div>
                                 <div class="nk-notification-time">2 hrs ago</div>
                               </div>
                             </div>
@@ -418,78 +418,73 @@
                     <div class="nk-block nk-block-lg">
                       <div class="nk-block-head">
                         <div class="nk-block-head-content">
-                          <h4 class="title nk-block-title">New Outgoing dispatch</h4>
+                          
+                          <h4 class="title nk-block-title">Outgoing dispatch : <label class="text-success"> {{doc}}</label></h4>
                         </div>
                       </div>
                       <div class="card card-preview ">
                         <div class="card-inner ">
                           <div class="preview-block">
                             <span class="preview-title-lg overline-title">Default Preview</span>
-                            <form id="newOutgoingForm">
+                            <form id="form">
+                              {% for request in dispatch %}
+                            
                             <div class="row gy-1">
                               <div class="col-sm-4  bg-white" >
                                 <div class="form-group">
                                   <label class="form-label" >Exporter</label>
                                   <div class="form-control-wrap">
-                                    <input type="text" class="form-control" name = "exporter" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="text"  class="form-control" value = "{{request.exporter}}" name = "exporter" id="default-01"   disabled  />
                                   </div>
                                 </div>
                                 
                                 <div class="form-group">
                                  <label class="form-label" >Exporter Id	</label>
                                  <div class="form-control-wrap">
-                                   <input type="text" class="form-control" name = "exporter_id"  id="default-01" placeholder="Input placeholder" required />
+                                   <input type="text"  class="form-control" value = "{{request.exporter_id}}" name = "exporter_id"  id="default-01"   disabled  />
                                  </div>
                                </div>
                                
                                 <div class="form-group">
                                   <label class="form-label" >Destination</label>
                                   <div class="form-control-wrap">
-                                    <input type="text" name="destination" class="form-control"  id="default-01" placeholder="Input placeholder" required />
+                                    <input type="text" name="destination"  class="form-control" value = "{{request.destination }}"  id="default-01"   disabled  />
                                   </div>
                                 </div>
                                    <label class="form-label" >Port</label>
                                    <div class="form-control-wrap">
-                                     <div class="form-control-select">
-                                       <select class="form-control" name = "port" id="default-06">
-                                         <option value="Addis Ababa Airport">Addis Ababa Airport</option>
-                                         <option value="Djibouti Port">Djibouti Port</option>
-                                         <option value="Mombasa Port">Mombasa Port</option>
-                                         <option value="Port of Sudan">Port of Sudan</option>
-                                         <option value="Berbera Port">Berbera Port</option>
-                                       </select>
-                                     </div>
+                                    <input type="text"   class="form-control" value = "{{request.port }}"  id="default-01"   disabled  />
                                  </div>
                                </div>
                               <div class="col-sm-4  bg-white" >
                                 <div class="form-group">
                                   <label class="form-label" for="exporter">Driver Name</label>
                                   <div class="form-control-wrap">
-                                    <input type="text" class="form-control" name = "driver_name" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="text"  class="form-control" value = "{{request.driver_name }}" name = "driver_name" id="default-01"   disabled  />
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="form-label" for="exporter">Driver Phone Number</label>
                                   <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "driver_phone_number" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="number"  min="0"  class="form-control" value = "{{request.driver_phone_number}}" name = "driver_phone_number" id="default-01"   disabled  />
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="form-label" for="exporter">Truck Plate Number</label>
                                   <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "truck_plate_number" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="number"  min="0"  class="form-control" value = "{{request.truck_plate_number }}" name = "truck_plate_number" id="default-01"   disabled  />
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="form-label" for="exporter">Container Number</label>
                                   <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "container_number" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="number"  min="0"  class="form-control" value = "{{request.container_number }}" name = "container_number" id="default-01"   disabled  />
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label class="form-label" for="exporter">Serial Number	</label>
                                   <div class="form-control-wrap">
-                                    <input type="text" class="form-control" name = "serial_number" id="default-01" placeholder="Input placeholder" required />
+                                    <input type="text"  class="form-control" value = "{{request.serial_number }}" name = "serial_number" id="default-01"   disabled  />
                                   </div>
                                 </div>
                               </div>   
@@ -497,164 +492,150 @@
                               <div class="form-group">
                                 <label class="form-label" >Commodity Type</label>
                                 <div class="form-control-wrap">
-                                  <div class="form-control-select">
-                                    <select class="form-control" name = "commodity_type" id="default-06">
-                                      <option value="Coffee">Coffee</option>
-                                      <option value="Tea">Tea</option>
-                                    </select>
-                                  </div>
+                                  <input type="text"   class="form-control" value = "{{request.commodity_type }}"  id="default-01"   disabled  />
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label class="form-label" >Processing Type</label>
                                 <div class="form-control-wrap">
-                                  <div class="form-control-select">
-                                    <select class="form-control" name = "processing_type" id="default-06">
-                                      <option value="Washed">Washed</option>
-                                      <option value="Unwashed">Unwashed</option>
-                                      <option value="Roasted">Roasted</option>
-                                      <option value="Anaerobic">Anaerobic</option>
-                                      <option value="Aerobic Honey Carbonic">Aerobic Honey Carbonic</option>
-                                    </select>
-                                  </div>
+                                 <input type="text"   class="form-control" value = "{{request.processing_type }}"  id="default-01"   disabled  />
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label class="form-label" >Coffee Grade</label>
                                 <div class="form-control-wrap">
-                                  <div class="form-control-select">
-                                    <select class="form-control" name = "coffee_grade" id="default-06">
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                      <option value="6">6</option>
-                                      <option value="7">7</option>
-                                      <option value="8">8</option>
-                                      <option value="9">9</option>
-                                      <option value="UG">UG</option>
-                                      <option value="Local">Local</option>
-                                      <option value="Waste">Waste</option>
-
-                                    </select>
-                                  </div>
+                                  
+                                 <input type="text"   class="form-control" value = "{{request.coffee_grade}}"  id="default-01"   disabled  />
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label class="form-label" >Package Type</label>
                                 <div class="form-control-wrap">
-                                  <div class="form-control-select">
-                                    <select class="form-control" name = "package_type" id="default-06">
-                                      <option value="Jute Bag (ኬሻ)">Jute Bag (ኬሻ)</option>
-                                      <option value="Poly bags">Poly bags</option>
-                                      <option value="20ft Container">20ft Container</option>
-                                      <option value="40ft container">40ft container</option>
-                                      <option value="Pallet">Pallet</option>
-                                      <option value="CorrugatePackage d Boxes">Corrugated Boxes</option>
-                                      <option value="Plastic Boxes">Plastic Boxes</option>
-                                      <option value="Bulk">Bulk</option>
-
-                                    </select>
-                                  </div>
+                                 <input type="text"   class="form-control" value = "{{request.package_type}}"  id="default-01"   disabled  />
                                 </div>
                               </div>
-                              <div class="form-control-select">
-                                <label class="form-label" >Dispatch Approval</label>
-                                <select class="form-control" name = "dispatch_approval" id="default-06">
-                                  <option value="Seen">Seen</option>
-                                  <option value="Rejected">Rejected</option>
-                                </select>
-                              </div>
-                              </div>
-                              <div class="col-sm-4  bg-white" >
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Quantity of Package</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "quantity_of_package" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Net Weight (Kg)</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "net_weight" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Total Weight(Kg)</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "total_weight" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Unit Price</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "unit_price" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
                               
-                              </div>             
-                              <div class="col-sm-4  bg-white" >
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Crop year</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "crop_year" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Certification Number</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "certification_number" id="default-01" placeholder="Input placeholder" required />
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-label" for="exporter">Contract Number	</label>
-                                  <div class="form-control-wrap">
-                                    <input type="number"  min="0" class="form-control" name = "contract_number" id="default-01" placeholder="Input placeholder" required required />
-                                  </div>
-                                </div>
-                      
-                              </div>    
-                              <div class="col-sm-4  bg-white" >
-                                <h3> Documents</h3>
-                                <div class="row">
+                                <label class="form-label" >Dispatch Approval</label>
+                                <input type="text"   class="form-control" value = "{{request.dispatch_approval}}"  id="default-01"   disabled  />
+                              </div>
+                              </div>
+                              <div class="row gy-1"> 
+                                <div class="col-sm-4  bg-white" >
                                   <div class="form-group">
-                                    <label class="form-label" >
-                                      Warehouse Outgoing Voucher</label>
+                                    <label class="form-label" for="exporter">Quantity of Package</label>
                                     <div class="form-control-wrap">
-                                      <div class="custom-file">
-                                        <input type="file" accept=
-                                        "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoi  nt,
-                                        text/plain, application/pdf, image/*" required multiple class="custom-file-input" id="warehouseVoucher" required />
-                                        <label class="custom-file-label" >Attach</label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">Other</label>
-                                    <div class="form-control-wrap">
-                                      <div class="custom-file">
-                                        <input type="file" multiple class="custom-file-input" id="other" />
-                                        <label class="custom-file-label" >Attach</label>
-                                      </div>
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.quantity_of_package }}" name = "quantity_of_package" id="default-01"   disabled  />
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label class="form-label" >Picture</label>
+                                    <label class="form-label" for="exporter">Net Weight (Kg)</label>
                                     <div class="form-control-wrap">
-                                      <div class="custom-file">
-                                        <input type="file" multiple class="custom-file-input" id="picture" />
-                                        <label class="custom-file-label" >Attach</label>
-                                      </div>
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.net_weight }}" name = "net_weight" id="default-01"   disabled  />
                                     </div>
                                   </div>
-                                </div>
-                               
-                              </div>                  
-                                <div class="col-md-12"><br>
-                                  <button type="submit" class = "btn btn-primary float-right">Submit</button>
-                                  <button onclick="location.href='/outgoings'"class="btn btn-primary float-left">Cancle</button>
+                                  <div class="form-group">
+                                    <label class="form-label" for="exporter">Total Weight(Kg)</label>
+                                    <div class="form-control-wrap">
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.total_weight }}" name = "total_weight" id="default-01"   disabled  />
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="form-label" for="exporter">Unit Price</label>
+                                    <div class="form-control-wrap">
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.unit_price }}" name = "unit_price" id="default-01"   disabled  />
+                                    </div>
+                                  </div>
+                                
+                                </div>             
+                                <div class="col-sm-4  bg-white" >
+                                  <div class="form-group">
+                                    <label class="form-label" for="exporter">Crop year</label>
+                                    <div class="form-control-wrap">
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.crop_year }}" name = "crop_year" id="default-01"   disabled  />
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="form-label" for="exporter">Certification Number</label>
+                                    <div class="form-control-wrap">
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.certification_number }}" name = "certification_number" id="default-01"   disabled  />
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="form-label" for="exporter">Contract Number	</label>
+                                    <div class="form-control-wrap">
+                                      <input type="number"  min="0"  class="form-control" value = "{{request.contract_number }}" name = "contract_number" id="default-01"   disabled   />
+                                    </div>
+                                  </div>
+                        
+                                </div>    
+                                <div class="col-sm-4  bg-white" >
+                                 
+                                 <h2 class="text-success">Documents</h2>
+                                    <div class="form-group">
+                                      <label class="form-label" for="exporter">Warehouse Outgoing Voucher</label>
+                                      <div class="form-control-wrap">
+                                        {% if request.warehouse_outgoing_voucher %}
+                                      
+                                        <a href="{{request.warehouse_outgoing_voucher}}" class="text-success" target="_blank">View</a>
+                                      
+                                      {% else %} 
+                                      
+                                          <span style="color:red">Not Attached</span>
+                                      
+                                      {% endif %}
+                                      </div>
+                                    </div>
+                                      
+                                    <div class="form-group">
+                                      <label class="form-label" for="exporter">Other</label>
+                                      <div class="form-control-wrap">
+                                        {% if request.warehouse_outgoing_voucher %}
+                                      
+                                        <a href="{{request.other}}" target="_blank" class="text-success">View</a>
+                                      
+                                      {% else %} 
+                                      
+                                          <span style="color:red">Not Attached</span>
+                                      
+                                      {% endif %}
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label class="form-label" for="exporter">Picture</label>
+                                      <div class="form-control-wrap">
+                                        {% if request.warehouse_outgoing_voucher %}
+                                      
+                                        <a href="{{request.picture}}" target="_blank" class="text-success">View</a>
+                                      
+                                      {% else %} 
+                                      
+                                          <span style="color:red">Not Attached</span>
+                                      
+                                      {% endif %}
+                                      </div>
+                                    </div>
+                                 
+                                </div> 
+                                <hr>
+                                
+                                  <div class="custom-control custom-control-lg custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                                    <label class="custom-control-label" for="customCheck1">Seen</label>
+                                  </div>
+                                  <div class="custom-control custom-control-lg custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck2" />
+                                    <label class="custom-control-label" for="customCheck2">Approve</label>
+                                  </div>
+                                    <div class="col-md-12"><br>
+                                    <button id="saveBtn" type="submit" class= "btn btn-primary float-right">Submit</button>
+                                  
+                              </div>
+
+                              
+                                  <button onclick="location.href='/ectaoutgoing'"class="btn btn-primary float-left">Cancle</button>
                                 </div>
                               </div>
+                              {% endfor %}
                             </form>
                           </div>
                         </div>
@@ -698,9 +679,70 @@
     <script src="/assets/ecta_dispatch/assets/js/scripts.js?ver=2.4.0"></script>
     
     <script type="text/javascript" src="/assets/frappe/dist/js/desk.bundle.CDZ7J6NO.js"></script>
-    <script src="/assets/ecta_dispatch/assets/js/newOutgoing.js"></script>
+    
     <script>
       frappe.csrf_token = "{{frappe.session.csrf_token}}";
+      
+    </script>
+    <script>
+      
+     
+      $("#customCheck1").change(function() {
+        console.log("i am changed");
+        if ($(this).is(':checked') ) {
+           $("#saveBtn").removeAttr("disabled");
+        } else {
+          console.log("i am in else");
+          $("#saveBtn").attr("disabled", "disabled");
+        }
+      }).trigger("change");
+      
+    </script>
+    <script >
+      
+      $("#customCheck2").change(function() {
+        console.log("i am changed");
+        if ($(this).is(':checked') ) {
+           approve = 1;
+        } else {
+          approve = 0;
+        }
+       }).trigger("change");
+       
+       var compareform = document.forms['form'];
+       compareform.onsubmit = function(e){
+       
+       e.preventDefault();
+       let call = async()=>{       
+        if(true){
+            let result = await $.ajax({
+              
+                  url: `/api/resource/Outgoing Dispatch/{{doc}}`,
+                  type: 'PUT',
+                
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Frappe-CSRF-Token': frappe.csrf_token
+                },
+                data: JSON.stringify({dispatch_approval:"Seen",approved_by:"{{user}}",approve:approve,date_of_approval:"{{date}}"}),
+                success: function(data){
+                    return data
+                },
+                error: function(data){
+                    return data
+                }
+            });
+            console.log(result);
+           
+            
+       }
+       }
+       
+       call();
+       alert("Document updated successfully!!!")
+       
+       }
+       
     </script>
   </body>
 </html>

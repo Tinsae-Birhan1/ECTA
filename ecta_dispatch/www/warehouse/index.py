@@ -2,12 +2,18 @@ import frappe
 from frappe.utils import pretty_date, now, add_to_date
 
 def get_context(context):
-  context.show_sidebar = 1
-#   context.new_dispatches = frappe.db.get_list("ECTA Dispatch", filters={'file_attached_by':frappe.session.user}, fields=['center','exporter_name','sent_warehouse','exporter_type','name','creation','excel_import'])
-  context.warehouse = frappe.get_list("ECTA Approved Warehouses", or_filters={'warehouse_owner': frappe.session.user, 'warehouse_operator': frappe.session.user}, fields={'warehouse_name','name'})
+  
+  if(("Warehouse Owner" in frappe.get_roles(frappe.session.user)) or ("Warehouse Operator" in frappe.get_roles(frappe.session.user))):
+    context.show_sidebar = 1
+  #   context.new_dispatches = frappe.db.get_list("ECTA Dispatch", filters={'file_attached_by':frappe.session.user}, fields=['center','exporter_name','sent_warehouse','exporter_type','name','creation','excel_import'])
+    context.warehouse = frappe.get_list("ECTA Approved Warehouses", or_filters={'warehouse_owner': frappe.session.user, 'warehouse_operator': frappe.session.user}, fields={'warehouse_name','name'})
 
-  context.dispatches = update(context.warehouse)
-  # context.warehouse = frappe.db.get_list("Warehouse",'*',filters={'warehouse_name':"Goods In Transit"});
+    context.dispatches = update(context.warehouse)
+      # context.warehouse = frappe.db.get_list("Warehouse",'*',filters={'warehouse_name':"Goods In Transit"});
+  else:
+    frappe.local.flags.redirect_location = "/"
+    raise frappe.Redirect
+  
   
 def update(warehouse): 
   iterate = 0
