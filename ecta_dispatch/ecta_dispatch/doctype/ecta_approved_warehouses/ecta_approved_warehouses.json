@@ -34,7 +34,9 @@
   "woreda",
   "section_break_29",
   "primay_user",
-  "second_user"
+  "second_user",
+  "wastage_percentage",
+  "adjustment"
  ],
  "fields": [
   {
@@ -171,11 +173,23 @@
   {
    "fieldname": "column_break_19",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "adjustment",
+   "fieldtype": "Table",
+   "label": "Adjustment",
+   "options": "Warehouse Balance"
+  },
+  {
+   "default": "20",
+   "fieldname": "wastage_percentage",
+   "fieldtype": "Percent",
+   "label": "Wastage Percentage"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-06-06 11:39:47.138683",
+ "modified": "2022-10-10 12:12:35.962566",
  "modified_by": "Administrator",
  "module": "Ecta Dispatch",
  "name": "ECTA Approved Warehouses",

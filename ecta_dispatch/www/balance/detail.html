@@ -1,0 +1,139 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Requests") }}{% endblock %}
+{% block style%}
+    <style>
+        td {
+            font-size: 1rem
+        }
+
+        body{
+            margin: 0;
+            font-family: var(--font-stack);
+            font-size: .9rem !important;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-light);
+            text-align: left;
+        }
+
+        @media (min-width: 1200px){
+            main.container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+    <script>
+        function numberWithCommas(x) {
+            document.write(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+    </script>
+{% endblock%}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <cen><h6>Incoming Dispatches</h6></cen>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>Exporter</th>
+                            <th>Received Volume In Tone</th>
+                            <th>Created At</th>
+                        </tr>
+                        {% for incoming in dispatches %}
+                            <tr>
+                                <td>{{incoming.exporter_name}}</td>
+                                <td>
+                                    <script>
+                                        numberWithCommas({{incoming.received_volume_in_ton}})
+                                    </script>
+                                </td>
+                                <td>{{frappe.format(incoming.creation, {'fieldtype': "Date"}) }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3"><center>No Result</center></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <cen><h6>Outgoing Dispatches</h6></cen>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>Exporter</th>
+                            <th>Net Weight</th>
+                            <th>Created At</th>
+                        </tr>
+                        {% for outgoing in outgoings %}
+                            <tr>
+                                <td>{{outgoing.exporter}}</td>
+                                <td>
+                                    <script>
+                                        numberWithCommas({{outgoing.net_weight}})
+                                    </script>
+                                </td>
+                                <td>{{frappe.format(outgoing.creation, {'fieldtype': "Date"}) }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3"><center>No Result</center></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+
+                    <cen><h6>Adjustments</h6></cen>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                            <tr>
+                                <th>Adjustment</th>
+                                <th>Balance</th>
+                                <th>Created At</th>
+                            </tr>
+                        {% for balance in balances %}
+                            <tr>
+                                <td>{{balance.adjustment}}</td>
+                                <td>
+                                    <script>
+                                        numberWithCommas({{balance.balance}})
+                                    </script>
+                                </td>
+                                <td>{{frappe.format(balance.creation, {'fieldtype': "Date"}) }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3"><center>No Result</center></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -9,15 +9,10 @@
   "warehouse",
   "balance",
   "year",
-  "quarter"
+  "quarter",
+  "adjustment"
  ],
  "fields": [
-  {
-   "fieldname": "warehouse",
-   "fieldtype": "Link",
-   "label": "Warehouse",
-   "options": "ECTA Approved Warehouses"
-  },
   {
    "fieldname": "balance",
    "fieldtype": "Float",
@@ -29,32 +24,32 @@
    "label": "Year"
   },
   {
+   "fieldname": "adjustment",
+   "fieldtype": "Select",
+   "label": "Adjustment",
+   "options": "Negative\nPositive"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "ECTA Approved Warehouses"
+  },
+  {
    "fieldname": "quarter",
    "fieldtype": "Int",
    "label": "Quarter"
   }
  ],
  "index_web_pages_for_search": 1,
+ "istable": 1,
  "links": [],
- "modified": "2022-08-08 16:01:23.102936",
+ "modified": "2022-10-10 12:21:00.596207",
  "modified_by": "Administrator",
  "module": "Ecta Dispatch",
  "name": "Warehouse Balance",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
