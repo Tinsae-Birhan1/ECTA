@@ -1,8 +1,9 @@
 from dataclasses import fields
 import frappe
+from ecta_dispatch.api.ecta_webpage_permission_api import checkPermisson
 
 def get_context(context):
-  if(("Warehouse Owner" in frappe.get_roles(frappe.session.user)) or ("Warehouse Operator" in frappe.get_roles(frappe.session.user))):
+    if(checkPermisson("outgoings")):
       context.show_sidebar = 1
       context.warehouse = frappe.get_list("ECTA Approved Warehouses", or_filters={'warehouse_owner': frappe.session.user, 'warehouse_operator': frappe.session.user}, fields={'warehouse_name','name'})
 
@@ -16,7 +17,5 @@ def get_context(context):
       
       print(context.outgoing_dispatches)
       print(context.dispatch) 
-  else:
-    frappe.local.flags.redirect_location = "/"
-    raise frappe.Redirect
+
   
