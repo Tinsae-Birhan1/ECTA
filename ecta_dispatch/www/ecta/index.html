@@ -18,8 +18,9 @@
               <th scope="col">Exporter Type</th>
               <th scope="col">Center</th>
               <th scope="col">Modified</th>
-              <th scope="col">Total in Kilogram</th>
-              <th scope="col">Total in Bag</th>
+              <th scope="col">Volume in Kilogram</th>
+              <th scope="col">Volume in Bag</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -71,29 +72,16 @@
             </tr>
            
             {% endfor %}
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="text-success">Total: {{sumofKG}} KG</td>
-              <td class="text-success">Total: {{sumofBag}} Bag</td>
-            </tr>
-
+            
           </tbody>
         </table>
 
-        <div class="col-md-6">
-          <h3>Total Volume In Kilogram</h3>
-          <label >{{sumofKG}} KG</label>
-          <h3>Total Voluem in Bag</h3>
-          <label >{{sumofBag}} Bags</label>
+        <div class="float-right ">
           
+          <label class="text-danger" >Total Volume In KG :<span class="text-success"> {{sumofKG}} KG</span></label>
+          <h3></h3>
+          <label class="text-danger">Total Voluem in Bag :<span class="text-success"> {{sumofBag}} Bags</span></label>
+        </div>
 
        
         <!-- Modal -->

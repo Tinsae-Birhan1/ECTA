@@ -1,36 +1,6 @@
-{% extends "templates/web.html" %}
+{% extends "templates/base_ecta.html" %}
 
-{% block title %}{{ _("Requests") }}{% endblock %}
-{% block style%}
-    <style>
-        td {
-            font-size: 1rem
-        }
-
-        body{
-            margin: 0;
-            font-family: var(--font-stack);
-            font-size: .9rem !important;
-            font-weight: 400;
-            line-height: 1.5;
-            color: var(--text-light);
-            text-align: left;
-        }
-
-        @media (min-width: 1200px){
-            main.container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
-    </style>
-    <script>
-        function numberWithCommas(x) {
-            document.write(x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        }
-    </script>
-{% endblock%}
-
+{% block title %}Balance{% endblock %}
 {% block page_content %}
     <div class="row">
         <div class="col-md-12">

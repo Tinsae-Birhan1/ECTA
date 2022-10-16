@@ -1,4 +1,4 @@
-{% extends "templates/base.html" %} 
+{% extends "templates/base_ecta.html" %} 
 {% block title %}Warehouse{% endblock %} 
 {% block content %}
 <!-- content @s -->
@@ -52,7 +52,7 @@
                         <td>{{request.creation}}</td>
                         <td>{{request.modified}}</td>
                         {% if request.status == "Seen" %}
-                        <td><i class="fa fa-lg fa-check"></i></td>
+                        <td>Seen</td>
                         {% elif request.proof_of_delivery %}
                         <td><a href="#" data-id="{{request.name}}" class="dispatchName text-success" data-toggle="modal" data-target="#Receive" data-backdrop="true">Update</a></td>
                         {% else %}
@@ -62,9 +62,9 @@
                         <td>
                           {% if request.approved %}
 
-                          <i class="fa fa-lg fa-check"></i>
+                          <em class="icon ni ni-check-thick"></em>
                           {% else %}<span style="color: red">NA</span>
-                          <i class="fa fa-car fa-lg"></i>
+                          
                           {% endif %}
                         </td>
                         <td>{{request.drivers_name}}</td>

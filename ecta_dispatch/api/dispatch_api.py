@@ -57,5 +57,158 @@ def get_dispatches_2(*args, **kwargs):
         frappe.response["recordsTotal"] = len(outgoing_dispatches_total)
         frappe.response["recordsFiltered"] = len(arranged_list_value)
 
+@frappe.whitelist()
+def get_available_by_warehouse(*args, **kwargs):
+    year = frappe.form_dict.year
+ 
+    dispatches = frappe.db.get_list("ECTA Dispatches", filters={'creation':['between', (str(year)+"-01-01", str(year)+"-12-31")]}, fields=["received_volume_in_ton", "sent_warehouse"])
+    balances = frappe.db.get_all("Warehouse Balance", filters={'year':year}, fields=['name', 'balance', 'year', 'parent'])
+    outgoings = frappe.db.get_list("Outgoing Dispatch", filters={'creation':['between', (str(year)+"-01-01", str(year)+"-12-31")]}, fields=['warehouse', 'net_weight'])
+    warehouses_list = frappe.db.get_list("ECTA Approved Warehouses", fields=["name"], order_by="name asc")
 
+    incoming = {}
+    balance = {}
+    outgoing = {}
 
+    for dispatch in dispatches:
+        if dispatch.sent_warehouse in incoming:
+            incoming[dispatch.sent_warehouse] = incoming[dispatch.sent_warehouse] + dispatch.received_volume_in_ton
+        else:
+            incoming[dispatch.sent_warehouse] = dispatch.received_volume_in_ton
+    
+    for balance in balances:
+        if balance.parent in balance:
+            balance[balance.parent] = balance[balance.parent] + balance.balance
+        else:
+            balance[balance.parent] =  balance.balance
+    
+    for outg in outgoings:
+        if outg.warehouse in outgoing:
+            outgoing[outg.warehouse] = outgoing[outg.warehouse] + outg.net_weight
+        else:
+            outgoing[outg.warehouse] =  outg.net_weight
+
+    tt_data(incoming, outgoing, balance, warehouses_list, frappe.form_dict.type)
+
+@frappe.whitelist()
+def get_available_by_exporter(*args, **kwargs):
+    year = frappe.form_dict.year
+  
+    dispatches = frappe.db.get_list("ECTA Dispatches", filters={'creation':['between', (str(year)+"-01-01", str(year)+"-12-31")]}, fields=["received_volume_in_ton", "exporter_id", "exporter_name"])
+    # balances = frappe.db.get_all("Warehouse Balance", filters={'year':year}, fields=['name', 'balance', 'year', 'parent'])
+    outgoings = frappe.db.get_list("Outgoing Dispatch", filters={'creation':['between', (str(year)+"-01-01", str(year)+"-12-31")]}, fields=['exporter_id', 'net_weight'])
+    exporter_list = frappe.db.get_list("Exporter", fields=["name", "exporter_id"], order_by="name asc")
+
+    incoming = {}
+    balance = {}
+    outgoing = {}
+    exporter = {}
+
+    for dispatch in dispatches:
+        if dispatch.exporter_id in incoming:
+            incoming[dispatch.exporter_id] = incoming[dispatch.exporter_id] + dispatch.received_volume_in_ton
+        else:
+            incoming[dispatch.exporter_id] = dispatch.received_volume_in_ton
+    
+    frappe.errprint(incoming)
+    # for exporter in exporter_list:  
+    #     exporter[exporter.exporter_id] = exporter.exporter_name
+    
+    for outg in outgoings:
+        if outg.exporter_id in outgoing:
+            outgoing[outg.exporter_id] = outgoing[outg.exporter_id] + outg.net_weight
+        else:
+            outgoing[outg.exporter_id] =  outg.net_weight
+    
+    data = {}
+    for incom in incoming:
+        value = incoming[incom]
+        data[incom] = value - (.2*value)
+
+    for outg in outgoing:
+        if outg in data:
+            data[outg] = data[outg] - outgoing[outg]
+        else:
+            data[outg] = outgoing[outg]
+
+    
+
+    all_datas = []
+    data = {}
+
+    for exp in exporter_list:
+
+        data["name"] = exp.name
+        data["exporter_id"] = exp.exporter_id
+        
+        if exp.exporter_id in incoming:
+            data["incoming"] = str("{:,}".format(incoming[exp.exporter_id]))
+            data["wastage"] = str("{:,.2f}".format(.2*incoming[exp.exporter_id]))
+        else:
+            data["incoming"] = 0
+            data["wastage"] = 0
+
+        if exp.exporter_id in outgoing:
+            data["outgoing"] = str("{:,.2f}".format(outgoing[exp.exporter_id]))
+        else: data["outgoing"] = 0
+
+        if exp.exporter_id in balance:
+            data["balance"] = str("{:,.2f}".format(balance[exp.exporter_id]))
+        else: data["balance"] = 0
+
+        if exp.exporter_id in data:
+            data["total"] = str("{:,.2f}".format(data[exp.exporter_id]))
+        else: data["total"] = 0
+
+        all_datas.append(data)
+        data = {}      
+
+    frappe.response['data'] = all_datas
+
+def tt_data(incoming, outgoing, balance, warehouses_list, data_type):
+    
+    data = {}
+    for incom in incoming:
+        value = incoming[incom]
+        data[incom] = value - (.2*value)
+
+        if incom in balance:
+            data[incom] = data[incom] + balance[incom]
+
+    for outg in outgoing:
+        if outg in data:
+            data[outg] = data[outg] - outgoing[outg]
+        else:
+            data[outg] = outgoing[outg]
+
+    all_warehouses = []
+    warehouse = {}
+
+    frappe.errprint(outgoing)
+
+    for warehouse in warehouses_list:
+        warehouse["name"] = warehouse.name
+        
+        if warehouse.name in incoming:
+            warehouse["incoming"] = str("{:,}".format(incoming[warehouse.name]))
+            warehouse["wastage"] = str("{:,.2f}".format(.2*incoming[warehouse.name]))
+        else:
+            warehouse["incoming"] = 0
+            warehouse["wastage"] = 0
+
+        if warehouse.name in outgoing:
+            warehouse["outgoing"] = str("{:,.2f}".format(outgoing[warehouse.name]))
+        else: warehouse["outgoing"] = 0
+
+        if warehouse.name in balance:
+            warehouse["balance"] = str("{:,.2f}".format(balance[warehouse.name]))
+        else: warehouse["balance"] = 0
+
+        if warehouse.name in data:
+            warehouse["total"] = str("{:,.2f}".format(data[warehouse.name]))
+        else: warehouse["total"] = 0
+
+        all_warehouses.append(warehouse)
+        warehouse = {}      
+
+    frappe.response['data'] = all_warehouses

@@ -3,6 +3,11 @@ import frappe
 from ecta_dispatch.api.ecta_webpage_permission_api import checkPermisson
 
 def get_context(context):
+    context.UserAvatar = frappe.session.user.upper()[0]
+    context.user = frappe.session.user
+    context.side_bar_ecta =frappe.get_doc('ECTA Sidebar', 'ECTA sidebar')
+    context.side_bar_group = "warehouse"
+    context.uid= frappe.session.user
     if(checkPermisson("outgoings")):
       context.show_sidebar = 1
       context.warehouse = frappe.get_list("ECTA Approved Warehouses", or_filters={'warehouse_owner': frappe.session.user, 'warehouse_operator': frappe.session.user}, fields={'warehouse_name','name'})

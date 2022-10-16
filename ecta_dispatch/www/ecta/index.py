@@ -17,10 +17,10 @@ def get_context(context):
       sumofKG += context.dispatches[i]['volume_in_ton']
       sumofBag += context.dispatches[i]['volume_in_bag']
       i = i+1
-      
+
     # context.warehouse = frappe.db.get_list("Warehouse",'*',filters={'warehouse_name':"Goods In Transit"});
-    context.sumofKG = sumofKG
-    context.sumofBag = sumofBag
+    context.sumofKG = "{:.2f}".format(sumofKG)
+    context.sumofBag ="{:.2f}".format(sumofBag)
   
   if checkPermisson("ecta"):
     context.dispatches = frappe.db.get_list("ECTA Dispatches", fields=['name','center','exporter_name','sent_warehouse','exporter_type','name','creation','excel_import','status', 'proof_of_delivery','name','approved', 'serial_number', 'modified','volume_in_bag','volume_in_ton','received_volume_in_bag','received_volume_in_ton'], order_by='status asc')
