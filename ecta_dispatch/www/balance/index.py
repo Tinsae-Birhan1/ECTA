@@ -4,6 +4,12 @@ from ecta_dispatch.api.ecta_webpage_permission_api import checkPermisson
 
 
 def get_context(context):
+    context.UserAvatar = frappe.session.user.upper()[0]
+    context.user = frappe.session.user
+    context.side_bar_ecta =frappe.get_doc('ECTA Sidebar', 'ECTA sidebar')
+    context.side_bar_group = "ECTA"
+    context.uid= frappe.session.user
+    
     if(checkPermisson("balance")):
         
         

@@ -1,393 +1,180 @@
-<!DOCTYPE html>
-<html lang="zxx" class="js">
-  <head>
-    <base href="./" />
-    <meta charset="utf-8" />
-    <meta name="author" content="Softnio" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers." />
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="/assets/ecta_dispatch/assets/images/favicon.png" />
-    <!-- Page Title  -->
-    <title>Outgoings</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.css" integrity="sha512-hksROWRSWPuYnv0z5vhyUwobZ49ZBxzhsCdXhwFy9ZDFFMS2UOg1DgCKphTlWkibm7p3Fp6Vq6GffbNDd+tOgg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/assets/ecta_dispatch/assets/css/dashlite.css?ver=2.4.0" />
-    <link id="skin-default" rel="stylesheet" href="/assets/ecta_dispatch/assets/css/theme.css?ver=2.4.0" />
-  </head>
+{% extends "templates/base_ecta.html" %} 
+{% block title %}ECTA local{% endblock %} 
+{% block content %}
+<!-- content @s -->
+<div class="nk-content">
+  <div class="container-fluid">
+    <div class="nk-content-inner">
+      <div class="nk-content-body">
+        <table class="datatable-init table">
+          <thead>
+            <tr>
+              <th scope="col">Exporter Name</th>
+              <th scope="col">Dispatch Date</th>
+              <th scope="col">Proof of Delivery</th>
+              <th scope="col">Action</th>
+              <th scope="col">Serial Number</th>
+              <th scope="col">Sent warehouse</th>
+              <th scope="col">Exporter Type</th>
+              <th scope="col">Center</th>
+              <th scope="col">Modified</th>
+              <th scope="col">Total in Kilogram</th>
+              <th scope="col">Total in Bag</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in dispatches %}
+            <tr>
+              {#
+              <th scope="row">{{frappe.utils.pretty_date(request.modified)}}</th>
+              #}
+              <td>{{request.exporter_name}}</td>
+              
+              {#
+              <!-- <td><a href="{{request.excel_import}}" target="_blank">attachement</a> -->
+              #}
+              <td>{{frappe.format(request.creation, {'fieldtype': 'Date'})}}</td>
+              <td>
+                {% if request.status == "Delivered" or request.status == "Seen" %}
+                 {% if request.proof_of_delivery %}
+                <a href="{{request.proof_of_delivery}}" target="_blank">Proof of delivery</a>
+                {% else %} {# NA #} {% endif %}
+              </td>
+                {% if request.approved %}
+              <td>
+                <a data-id="{{request.name}}" class="dispatchlinks text-success" data-toggle="modal" data-target="#Approve" data-backdrop="true">Approved</a>
+              </td>
+              {% else %}{% if (not request.approved) and request.status == "Seen" %}
+              <td>
+                <a data-id="{{request.name}}" class="dispatchlinks text-danger" data-toggle="modal" data-target="#Approve" data-backdrop="true">Seen; Not Approved</a>
+              </td>
+              {% else %}
+              <!-- <td><a href="#"  data-toggle="modal" data-target="#exampleModal">Edit</a></td> -->
+              <td>
+                <a data-id="{{request.name}}" class="dispatchlinks text-warning" data-toggle="modal" data-target="#Approve" data-backdrop="true">Not Seen</a>
+              </td>
+              {% endif %}
+              {% endif %} {% else %}
+              <td>
+                <a href="#"  data-target="{{request.name}}">NA</a>
+              </td>
 
-  <body class="nk-body bg-lighter npc-default has-sidebar">
-    <div class="nk-app-root">
-      <!-- main @s -->
-      <div class="nk-main">
-        <!-- sidebar @s -->
-        <div class="nk-sidebar nk-sidebar-fixed is-light" data-content="sidebarMenu">
-          <div class="nk-sidebar-element nk-sidebar-head">
-            <div class="nk-sidebar-brand">
-              <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="/assets/ecta_dispatch/assets/images/logo.png" srcset="/assets/ecta_dispatch/assets/images/logo2x.png 2x" alt="logo" />
-                <img class="logo-dark logo-img" src="/assets/ecta_dispatch/assets/images/logo-dark.png" srcset="/assets/ecta_dispatch/assets/images/logo-dark2x.png 2x" alt="logo-dark" />
-                <img class="logo-small logo-img logo-img-small" src="/assets/ecta_dispatch/assets/images/logo-small.png" srcset="/assets/ecta_dispatch/assets/images/logo-small2x.png 2x" alt="logo-small" />
-              </a>
-            </div>
-            <div class="nk-menu-trigger mr-n2">
-              <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu">Acr</a>
-              <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
-            </div>
-          </div>
-          <!-- .nk-sidebar-element -->
-          <div class="nk-sidebar-element">
-            <div class="nk-sidebar-content">
-              <div class="nk-sidebar-menu" data-simplebar>
-                <ul class="nk-menu">
-                  <li class="nk-menu-heading">
-                    <h6 class="overline-title text-primary-alt">Dashboards</h6>
-                  </li>
-                  <!-- .nk-menu-item -->
-                  <li class="nk-menu-item">
-                    <a href="/ectaoutgoing" class="nk-menu-link">
-                      <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
-                      ECTA_Outgoing Dispatch
-                    </a>
-                  </li>
-                  <!-- .nk-menu-item -->
+              {% endif %}
+              <td>{{request.serial_number}}</td>
+              <td>{{request.sent_warehouse}}</td>
+              <td>{{request.exporter_type}}</td>
+              <td>{{request.center}}</td>
+              
+              <td>{{frappe.format(request.modified, {'fieldtype':'Date'})}}</td>
+              <td>{{request.volume_in_ton}} KG</td>
+              <td >{{request.volume_in_bag}} Bag</td>
+            </tr>
+           
+            {% endfor %}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-success">Total: {{sumofKG}} KG</td>
+              <td class="text-success">Total: {{sumofBag}} Bag</td>
+            </tr>
 
-                  <!-- <li class="nk-menu-item">
-                                    <a href="html/index-analytics.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-growth-fill"></em></span>
-                                        <span class="nk-menu-text">Analytics</span>
-                                    </a>
-                                </li> -->
-                </ul>
-                <!-- .nk-menu -->
-              </div>
-              <!-- .nk-sidebar-menu -->
-            </div>
-            <!-- .nk-sidebar-content  -->
-          </div>
-          <!-- .nk-sidebar-element  -->
-        </div>
-        <!-- sidebar @e -->
-        <!-- wrap @s -->
-        <div class="nk-wrap">
-          <!-- main header @s -->
-          <div class="nk-header nk-header-fixed is-light">
-            <div class="container-fluid">
-              <div class="nk-header-wrap">
-                <div class="nk-menu-trigger d-xl-none ml-n1">
-                  <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
-                </div>
-                <div class="nk-header-brand d-xl-none">
-                  <a href="html/index.html" class="logo-link">
-                    <img class="logo-light logo-img" src="/assets/ecta_dispatch/assets/images/logo.png" srcset="./images/logo2x.png 2x" alt="logo" />
-                    <img class="logo-dark logo-img" src="/assets/ecta_dispatch/assets/images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark" />
-                  </a>
-                </div>
-                <!-- .nk-header-brand -->
-                <div class="nk-header-search ml-3 ml-xl-0">
-                  <em class="icon ni ni-search"></em>
-                  <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything" />
-                </div>
-                <!-- .nk-header-news -->
-                <div class="nk-header-tools">
-                  <ul class="nk-quick-nav">
-                    
-                    <li class="dropdown user-dropdown">
-                      <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
-                        <div class="user-toggle">
-                          <div class="user-avatar sm">
-                            <em class="icon ni ni-user-alt"></em>
-                          </div>
-                          <div class="user-info d-none d-xl-block">
-                            <div class="user-status user-status-active">active</div>
-                            <div class="user-name dropdown-indicator">{{uid}}</div>
-                          </div>
-                        </div>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                          <div class="user-card">
-                            <div class="user-avatar">
-                              <span>AB</span>
-                            </div>
-                            <div class="user-info">
-                              <span class="lead-text">{{uid}}</span>
-                              <span class="sub-text">{{uid}}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="dropdown-inner">
-                          <ul class="link-list">
-                            <li>
-                              <a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a>
-                            </li>
-                            <li>
-                              <a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a>
-                            </li>
-                            <li>
-                              <a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a>
-                            </li>
-                            <li>
-                              <a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="dropdown-inner">
-                          <ul class="link-list">
-                            <li>
-                              <a href="/?cmd=web_logout"><em class="icon ni ni-signout"></em><span>Sign out</span></a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <!-- .nk-header-wrap -->
-            </div>
-            <!-- .container-fliud -->
-          </div>
+          </tbody>
+        </table>
 
-          <!-- main header @e -->
-          <!-- content @s -->
+        <div class="col-md-6">
+          <h3>Total Volume In Kilogram</h3>
+          <label >{{sumofKG}} KG</label>
+          <h3>Total Voluem in Bag</h3>
+          <label >{{sumofBag}} Bags</label>
           
-          <div class="nk-content">
-            <div class="container-fluid">
-              <div class="nk-content-inner">
-                <div class="nk-content-body">
-                  <table class="datatable-init table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Exporter Name</th>
-                        <th scope="col">Dispatch Date</th>
-                        <th scope="col">Proof of Delivery</th>
-                        <th scope="col">Action</th>
-                        <th scope="col">Serial Number</th>
-                        <th scope="col">Sent warehouse</th>
-                        <th scope="col">Exporter Type</th>
-                        <th scope="col">Center</th>
-                        <th scope="col">Modified</th>
-                        <th scope="col">Total in Kilogram</th>
-                        <th scope="col">Total in Bag</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for request in dispatches %}
-                      <tr>
-                        {#
-                        <th scope="row">{{frappe.utils.pretty_date(request.modified)}}</th>
-                        #}
-                        <td>{{request.exporter_name}}</td>
-                        
-                        {#
-                        <!-- <td><a href="{{request.excel_import}}" target="_blank">attachement</a> -->
-                        #}
-                        <td>{{frappe.format(request.creation, {'fieldtype': 'Date'})}}</td>
-                        <td>
-                          {% if request.status == "Delivered" or request.status == "Seen" %}
-                           {% if request.proof_of_delivery %}
-                          <a href="{{request.proof_of_delivery}}" target="_blank">Proof of delivery</a>
-                          {% else %} {# NA #} {% endif %}
-                        </td>
-                          {% if request.approved %}
-                        <td>
-                          <a data-id="{{request.name}}" class="dispatchlinks text-success" data-toggle="modal" data-target="#Approve" data-backdrop="true">Approved</a>
-                        </td>
-                        {% else %}{% if (not request.approved) and request.status == "Seen" %}
-                        <td>
-                          <a data-id="{{request.name}}" class="dispatchlinks text-danger" data-toggle="modal" data-target="#Approve" data-backdrop="true">Seen; Not Approved</a>
-                        </td>
-                        {% else %}
-                        <!-- <td><a href="#"  data-toggle="modal" data-target="#exampleModal">Edit</a></td> -->
-                        <td>
-                          <a data-id="{{request.name}}" class="dispatchlinks text-warning" data-toggle="modal" data-target="#Approve" data-backdrop="true">Not Seen</a>
-                        </td>
-                        {% endif %}
-                        {% endif %} {% else %}
-                        <td>
-                          <a href="#"  data-target="{{request.name}}">NA</a>
-                        </td>
 
-                        {% endif %}
-                        <td>{{request.serial_number}}</td>
-                        <td>{{request.sent_warehouse}}</td>
-                        <td>{{request.exporter_type}}</td>
-                        <td>{{request.center}}</td>
-                        
-                        <td>{{frappe.format(request.modified, {'fieldtype':'Date'})}}</td>
-                        <td>{{request.volume_in_ton}} KG</td>
-                        <td >{{request.volume_in_bag}} Bag</td>
-                      </tr>
-                     
-                      {% endfor %}
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-success">Total: {{sumofKG}} KG</td>
-                        <td class="text-success">Total: {{sumofBag}} Bag</td>
-                      </tr>
-
-                    </tbody>
-                  </table>
-
-                  <div class="col-md-6">
-                    <h3>Total Volume In Kilogram</h3>
-                    <label >{{sumofKG}} KG</label>
-                    <h3>Total Voluem in Bag</h3>
-                    <label >{{sumofBag}} Bags</label>
-                    
-
-                 
-                  <!-- Modal -->
-                  <!-- Approve proof modal @s-->
-
-                  <div id="Approve" class="modal custom-modal fade" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Dispatch Approval Form</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form id="compareform">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <h3>Warehouse</h3>
-                                <label >Received Volume in Bag</label>
-                                <input type="number" id="VBW" class="form-control formInputs inputs" name="received_volume_in_bag_warehouse" min="0" value="" disabled />
-                                <label >Received Volume in Ton</label>
-                                <input type="number"   id="VTW"class="form-control formInputs inputs" name="received_volume_in_ton_warehouse" min="0" value="" disabled />
-                              </div>
-
-                              <div class="col-md-6">
-                                <h3>Initial Dispatch</h3>
-                                <label >Received Volume in Bag</label>
-                                <input type="number"  id="VBD" class="form-control formInputs inputs" name="received_volume_in_bag_dispatch" min="0" value="" disabled />
-                                <label >Received Volume in Ton</label>
-                                <input type="number"  id="VTD" class="form-control formInputs inputs" name="received_volume_in_ton_dispatch" min="0" value="" disabled />
-                              </div>
-
-                              <div class="col-md-12">
-                                <br/>
-                                <div class="custom-control custom-control-lg custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                                  <label class="custom-control-label" for="customCheck1">Seen</label>
-                                </div>
-                                <div class="custom-control custom-control-lg custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="customCheck2" />
-                                  <label class="custom-control-label" for="customCheck2">Approve</label>
-                                </div>
-                                <button id="saveBtn" class="btn btn-primary float-right" >Save</button>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-        
-      
-        <!-- content @e -->
-        <!-- footer @s -->
-      
+       
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+        <!-- Approve proof modal @s-->
+
+        <div id="Approve" class="modal custom-modal fade" role="dialog">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title">Dispatch Approval Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-12">
-                      <label for="inputEmail4">Test</label>
-                      <input type="email" class="form-control" id="inputEmail4" placeholder="Email" />
+                <form id="compareform">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h3>Warehouse</h3>
+                      <label >Received Volume in Bag</label>
+                      <input type="number" id="VBW" class="form-control formInputs inputs" name="received_volume_in_bag_warehouse" min="0" value="" disabled />
+                      <label >Received Volume in Ton</label>
+                      <input type="number"   id="VTW"class="form-control formInputs inputs" name="received_volume_in_ton_warehouse" min="0" value="" disabled />
                     </div>
-                    <div class="form-group col-md-12">
-                      <label for="inputPassword4">Test input</label>
-                      <input type="password" class="form-control" id="inputPassword4" placeholder="Password" />
+
+                    <div class="col-md-6">
+                      <h3>Initial Dispatch</h3>
+                      <label >Received Volume in Bag</label>
+                      <input type="number"  id="VBD" class="form-control formInputs inputs" name="received_volume_in_bag_dispatch" min="0" value="" disabled />
+                      <label >Received Volume in Ton</label>
+                      <input type="number"  id="VTD" class="form-control formInputs inputs" name="received_volume_in_ton_dispatch" min="0" value="" disabled />
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" />
+
+                    <div class="col-md-12">
+                      <br/>
+                      <div class="custom-control custom-control-lg custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                        <label class="custom-control-label" for="customCheck1">Seen</label>
+                      </div>
+                      <div class="custom-control custom-control-lg custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck2" />
+                        <label class="custom-control-label" for="customCheck2">Approve</label>
+                      </div>
+                      <button id="saveBtn" class="btn btn-primary float-right" >Save</button>
+                    </div>
                   </div>
                 </form>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
             </div>
           </div>
         </div>
-
-        <div class="nk-footer">
-          <div class="container-fluid">
-            <div class="nk-footer-wrap">
-              <div class="nk-footer-copyright">&copy; 2020 DashLite. Template by <a href="https://softnio.com" target="_blank">Softnio</a></div>
-              <div class="nk-footer-links">
-                <ul class="nav nav-sm">
-                  <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- footer @e -->
       </div>
-      <!-- wrap @e -->
     </div>
-    <!-- main @e -->
+  </div>
+</div>
+</div>
 
-    <!-- app-root @e -->
-    <!-- JavaScript -->
-    
 
-    <script src="/assets/ecta_dispatch/assets/js/bundle.js?ver=2.4.0"></script>
-    <script src="/assets/ecta_dispatch/assets/js/ecta.js"></script>
-    <script src="/assets/ecta_dispatch/assets/js/scripts.js?ver=2.4.0"></script>
-    <script type="text/javascript" src="/assets/frappe/dist/js/desk.bundle.CDZ7J6NO.js"></script>
-   
-    <script>
-      frappe.csrf_token = "{{frappe.session.csrf_token}}";
-    </script>
-    <script>
-      
-      $("#customCheck1").change(function() {
-        console.log("i am changed");
-        if ($(this).is(':checked') ) {
-           $("#saveBtn").removeAttr("disabled");
-        } else {
-          console.log("i am in else");
-          $("#saveBtn").attr("disabled", "disabled");
-        }
-      }).trigger("change");
-      
-    </script>
+<!-- content @e -->
+
+{% endblock %}
+<script src="/assets/ecta_dispatch/assets/js/index.js"></script>
+<script>
+  frappe.csrf_token = "{{frappe.session.csrf_token}}";
+</script>
+{% block script %}
+<script src="/assets/ecta_dispatch/assets/js/ecta.js"></script>
+<script>
+  frappe.csrf_token = "{{frappe.session.csrf_token}}";
+</script>
+<script>
   
-    
-  </body>
-</html>
+  $("#customCheck1").change(function() {
+    console.log("i am changed");
+    if ($(this).is(':checked') ) {
+       $("#saveBtn").removeAttr("disabled");
+    } else {
+      console.log("i am in else");
+      $("#saveBtn").attr("disabled", "disabled");
+    }
+  }).trigger("change");
+  
+</script>
+{% endblock %}

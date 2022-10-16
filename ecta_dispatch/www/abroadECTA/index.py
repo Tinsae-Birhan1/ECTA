@@ -2,7 +2,13 @@ import frappe
 from ecta_dispatch.api.ecta_webpage_permission_api import checkPermisson
 
 def get_context(context):
-    if(checkPermisson("ectaoutgoing")):
+    context.UserAvatar = frappe.session.user.upper()[0]
+    context.user = frappe.session.user
+    context.side_bar_ecta =frappe.get_doc('ECTA Sidebar', 'ECTA sidebar')
+    context.side_bar_group = "ECTA"
+    context.uid= frappe.session.user
+    
+    if(checkPermisson("abroadECTA")):
       context.show_sidebar = 1
       context.csrf_token = frappe.sessions.get_csrf_token()
 

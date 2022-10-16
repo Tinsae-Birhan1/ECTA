@@ -46,13 +46,16 @@
                     <h6 class="overline-title text-primary-alt">Dashboards</h6>
                   </li>
                   <!-- .nk-menu-item -->
-                  
+                  {% for items in side_bar_ecta.sidebar_items %}
+                  {%if items.group == side_bar_group%}
                   <li class="nk-menu-item">
-                    <a href="/outgoings" class="nk-menu-link">
+                    <a href="{{items.route}}" class="nk-menu-link">
                       <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
-                      <span class="nk-menu-text">Outgoings</span>
+                      <span class="nk-menu-text">{{items.title}}</span>
                     </a>
                   </li>
+                  {%endif%}
+                  {% endfor %}
                   <!-- .nk-menu-item -->
 
                   <!-- <li class="nk-menu-item">
@@ -322,7 +325,7 @@
                       <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
                         <div class="user-toggle">
                           <div class="user-avatar sm">
-                            <em class="icon ni ni-user-alt"></em>
+                            <em >{{UserAvatar}}</em>
                           </div>
                           <div class="user-info d-none d-xl-block">
                             <div class="user-status user-status-active">Active</div>

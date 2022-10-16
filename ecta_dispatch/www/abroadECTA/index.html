@@ -1,0 +1,157 @@
+{% extends "templates/base_ecta.html" %} 
+{% block title %}ECTA outgoing{% endblock %} 
+{% block content %}
+<!-- content @s -->
+<div class="nk-content ">
+    <div class="container-fluid">
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="components-preview wide-md mx-auto">
+                    
+                    <div class="nk-block nk-block-lg">
+                        
+                        <div class="card card-preview">
+                            <div class="card-inner">
+                                <div>
+                                    <table class="datatable-init table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">Exporter</th>
+                                            <th scope="col">commodity Type</th>
+                                            <th scope="col">From Warehouse</th>
+                                            <th scope="col">Destination</th>
+                                            <th scope="col">Warehouse outgoing Voucher</th>
+                                            <th scope="col">dispatch_approval</th>
+                                            <th scope="col">Serial Number</th>
+                                            <th scope="col">Truck Plate Number</th>
+                                            <th scope="col">Total in Kilogram</th>
+                                            <th scope="col">Driver Phone Number</th>
+                                            <th scope="col">Driver Name</th>
+                                            <th scope="col">Details and Action</th>
+                                            
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {% for request in dispatches %}
+                                          <tr>
+                                            <td>{{request.exporter}}</td>
+                                            <td>{{request.commodity_type}}</td>
+                                            <td>{{request.warehouse}}</td>
+                                            <td>{{request.destination}}</td>
+                                            {% if request.warehouse_outgoing_voucher %}
+                                            <td>
+                                              <a href="{{request.warehouse_outgoing_voucher}}" target="_blank">Outgoing Voucher</a>
+                                            </td>
+                                            {% else %} 
+                                            <td>
+                                                <span style="color:red">NA</span>
+                                            </td>
+                                            {% endif %}
+                                    
+                                            {% if request.approve %}
+                                                <td>
+                                                <a data-id="{{request.name}}" class="dispatchlinks text-success">Approved</a>
+                                                </td>
+                                            {% else %}
+                                            {% if (not request.approve) and (request.dispatch_approval == "Seen") %}
+                                                    <td>
+                                                    <a data-id="{{request.name}}" class="dispatchlinks text-danger" >Seen; Not Approved</a>
+                                                    </td>
+                                            {% else %}
+                                                    <!-- <td><a href="#"  data-toggle="modal" data-target="#exampleModal">Edit</a></td> -->
+                                                    <td>
+                                                    <a data-id="{{request.name}}" class="dispatchlinks text-warning" >Not Seen</a>
+                                                    </td>
+                                            {% endif %}
+                                            {% endif %}
+                                            <td>{{request.serial_number}}</td>
+                                            <td>{{request.truck_plate_number}}</td>
+                                            <td>{{request.total_weight}}</td>
+                                            <td>{{request.driver__phone_number}}</td>
+                                            <td>{{request.driver_name}}</td>
+                                            <td><a  href= "/abroadECTA/detail?doc={{request.name}}" class="dispatchlinks text-warning" >Detail and Action</a></td>
+                                          </tr>
+                                    
+                                          {% endfor %}
+                                        </tbody>
+                                      </table>
+                                    
+                                
+                                </div>
+                            </div>
+                        </div><!-- .card-preview -->
+                    </div> <!-- nk-block -->
+                    
+                </div><!-- .components-preview -->
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Recieve proof modal @s-->
+
+  <div id="Receive" class="modal custom-modal fade" role="dialog">
+    <div
+    class="modal-dialog modal-dialog-centered modal-lg"
+    role="document"
+    >
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Dispatch Acceptance Form</h5>
+        <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form id="dispatchForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label"></label>
+                        <label for="">Status</label>
+                        <select id="dispatchStatus" name = "status" class="select">
+                            <option  value="Delivered">Delivered</option>
+                            <option  value="Undelivered">Not Delivered</option>
+                        </select>
+                    </div>
+                <div class="col-md-6">
+                    <label for="">Received Volume in Bag</label>
+                    <input type="number" class="form-control formInputs inputs" 
+                        name="received_volume_in_bag"  min="0" value="" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Received Volume in Ton</label>
+                    <input type="number" class="form-control formInputs inputs" 
+                    name="received_volume_in_ton" min="0" value="" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Proof of delivery</label>
+                    <input type="file" class="form-control formInputs" placeholder="File"
+                    name="image" accept=
+                    "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                    text/plain, application/pdf, image/*" id="file" value=""required>
+                </div>
+            
+                <div class="col-md-12"><br>
+                    <button class="btn btn-primary float-right">Submit</button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+</div> 
+<!-- content @e -->
+
+{% endblock %}
+{% block script %}
+<script src="/assets/ecta_dispatch/assets/js/index.js"></script>
+<script>
+  frappe.csrf_token = "{{frappe.session.csrf_token}}";
+</script>
+{% endblock %}

@@ -2,6 +2,10 @@ import frappe
 from ecta_dispatch.api.ecta_webpage_permission_api import checkPermisson
 
 def get_context(context):
+  context.UserAvatar = frappe.session.user.upper()[0]
+  context.user = frappe.session.user
+  context.side_bar_ecta =frappe.get_doc('ECTA Sidebar', 'ECTA sidebar')
+  context.side_bar_group = "ECTA"
   context.uid= frappe.session.user
   context.first_name = frappe.db.get_value('User', {'username': context.uid}, ['first_name'])
 #   context.new_dispatches = frappe.db.get_list("ECTA Dispatches", filters={'file_attached_by':frappe.session.user}, fields=['center','exporter_name','sent_warehouse','exporter_type','name','creation','excel_import'])

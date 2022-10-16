@@ -2,7 +2,13 @@ import frappe
 
 def get_context(context):
   if(frappe.request.args):
-    context.show_sidebar = 1
+    context.UserAvatar = frappe.session.user.upper()[0]
+    context.user = frappe.session.user
+    context.side_bar_ecta =frappe.get_doc('ECTA Sidebar', 'ECTA sidebar')
+    context.side_bar_group = "ECTA"
+    context.uid= frappe.session.user
+    
+    
     context.csrf_token = frappe.sessions.get_csrf_token()
     query_params = frappe.request.args
     context.user = frappe.session.user
@@ -20,5 +26,5 @@ def get_context(context):
   
     #ImmutableMultiDict([('name', 'helloIamworking')])
   else:
-    frappe.local.flags.redirect_location = "/ectaoutgoing"
+    frappe.local.flags.redirect_location = "/abroadECTA"
     raise frappe.Redirect
