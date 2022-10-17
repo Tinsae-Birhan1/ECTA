@@ -2,7 +2,7 @@
 
 1. Initialize frappe bench and install app
 ```bash
-bench get --init-bench https://github.com/Across-Express/ECTA
+bench get --init-bench https://github.com/NATILEMMA/ECTA
 ```
 2. Create new site 
 
